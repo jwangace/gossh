@@ -14,9 +14,9 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-type host string
+type Host string
 
-func (h host) sshclient() (*goph.Client, error) {
+func (h host) Sshclient() (*goph.Client, error) {
 	auth, err := goph.UseAgent()
 	if err != nil {
 		log.Fatal(err)
@@ -28,7 +28,7 @@ func (h host) sshclient() (*goph.Client, error) {
 	return goph.New(user.Username, string(h), auth)
 }
 
-func (h host) runcmd(s string) string {
+func (h host) Runcmd(s string) string {
 	client, err := h.sshclient()
 	if err != nil {
 		log.Fatal(err)
