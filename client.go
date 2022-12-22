@@ -16,7 +16,7 @@ import (
 
 type Host string
 
-func (h host) Sshclient() (*goph.Client, error) {
+func (h Host) sshclient() (*goph.Client, error) {
 	auth, err := goph.UseAgent()
 	if err != nil {
 		log.Fatal(err)
@@ -28,7 +28,7 @@ func (h host) Sshclient() (*goph.Client, error) {
 	return goph.New(user.Username, string(h), auth)
 }
 
-func (h host) Runcmd(s string) string {
+func (h Host) Runcmd(s string) string {
 	client, err := h.sshclient()
 	if err != nil {
 		log.Fatal(err)
