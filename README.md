@@ -5,4 +5,4 @@ Suppose your local machine or the machine you run the code already able to ssh i
 This module helps you in this senario.
 
 
-The example shows how you can use it, simplely define a host (myhost) and you can run commands on myhost.
+The example shows how you can use it, simplely define a slice of gossh.Hosts and you can run commands againest.
