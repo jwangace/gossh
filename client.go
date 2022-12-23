@@ -1,14 +1,9 @@
 package gossh
 
 import (
-	"bufio"
-	"errors"
-	"fmt"
 	"log"
 	"net"
-	"os"
 	"os/user"
-	"strings"
 
 	"github.com/melbahja/goph"
 	"golang.org/x/crypto/ssh"
