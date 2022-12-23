@@ -20,7 +20,13 @@ func (h Host) Sshclient() (*goph.Client, error) {
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
-	return goph.New(user.Username, string(h), auth)
+	return goph.NewConn(&goph.Config{
+		User:     user.Username,
+		Addr:     string(h),
+		Auth:     auth,
+		Port:     22,
+		Callback: VerifyHost,
+	})
 }
 
 func (h Host) Runcmd(s string) string {
