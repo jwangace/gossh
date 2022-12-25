@@ -14,14 +14,14 @@ import (
 type Host string
 type Hosts []Host
 
-func (h Host) Runcmd(cmd string) string {
+func (h Host) Runcmd(cmd string) (string, error) {
 	client, err := h.Sshclient()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer client.Close()
-	out, _ := client.Run(cmd)
-	return string(out)
+	out, err := client.Run(cmd)
+	return string(out), err
 }
 
 func (hs Hosts) RunParallel(cmd string) {
@@ -30,7 +30,12 @@ func (hs Hosts) RunParallel(cmd string) {
 		wg.Add(1)
 		h := h
 		go func() {
-			fmt.Print(h, ":", h.Runcmd(cmd))
+			out, err := h.Runcmd(cmd)
+			if err != nil {
+				fmt.Print(h, "Error:", err)
+			} else {
+				fmt.Print(h, ":", string(out))
+			}
 			defer wg.Done()
 		}()
 	}
