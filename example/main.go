@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/jwangace/gossh"
 )
 
@@ -15,6 +17,10 @@ func main() {
 
 	// Run commands on single host on condition
 	if _, err := myhosts[0].Runcmd("date"); err != nil {
+		fmt.Println(err)
+		// More custom handle here
+		return
+	} else {
 		myhosts[0].Runcmd("uptime")
 	}
 }
